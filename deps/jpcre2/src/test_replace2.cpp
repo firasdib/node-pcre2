@@ -34,7 +34,7 @@ int main(){
     
     /* // >= C++11
     if(re) std::cout<<"\n Success";
-    else std::cout<<"\n Failure";
+    else std::cerr<<"\n Failure";
     */
     
     if(!!re) std::cout<<"\n Compile Success";
@@ -53,9 +53,9 @@ int main(){
     getLine(repl_mod);
 
     //perform replace
-
+    jp::RegexReplace rr;
     std::cout<<"\nreplaced string: "<<
-        re.initReplace()
+        rr.setRegexObject(&re)
           .setSubject(subject)
           .setReplaceWith(repl)
           .addModifier(repl_mod)

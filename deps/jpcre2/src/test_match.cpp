@@ -20,21 +20,25 @@ int main(){
     jp::Regex re;
     
     //Compile the pattern
-    re.setPattern("(?:(?<w_s>[.?#@]+)|(?<w_s>\\w+))\\s*(?<digit>\\d+)")  //set pattern
-      .setModifier("min")                                                //set modifier
+    //Different name for the same group is permitted (deviation from the PCRE2 spec 10.21):
+    re.setPattern("((?<spc>[.?#@])|(?<w_s>\\w+))\\s*(?<digit>\\d+)")  //set pattern
+      .setModifier("minJ")                                               //set modifier
       .addJpcre2Option(jpcre2::JIT_COMPILE)                              //perform JIT compile
-      .addPcre2Option(PCRE2_DUPNAMES)                                    //add pcre2 option
+      .addPcre2Option(0)                                                 //add pcre2 option
       .compile();                                                        //Finally compile it.
-    
-    // JIT error is a harmless error, it just means that an optimization failed.
+      re.setModifier("fdsfsd"); //creating an invalid modifier error
+    std::cerr<<re.getErrorMessage()<<"\terror number: "<<re.getErrorNumber();
+    // JIT error is a harmless, it just means that an optimization failed.
     
     //subject string
     std::string subject = "(I am a string with words and digits 45 and specials chars: ?.#@ 443 অ আ ক খ গ ঘ  56)";
     
     size_t count = 0;
-    
-    count = re.initMatch()                                  //create a match object
-              .addModifier("g")                             //set various parameters
+    jp::RegexMatch rm;
+    count = rm.setRegexObject(&re)                          //set associated Regex object
+              .addModifier("gi")                            //set various parameters
+              //'invalid modifier: i' error (i is a compile modifier)
+              //modifier error is harmless
               .setSubject(subject)                          //...
               .setNumberedSubstringVector(&vec_num)         //...
               .setNamedSubstringVector(&vec_nas)            //...
@@ -42,7 +46,7 @@ int main(){
               .addPcre2Option(0)                            //...
               .match();                                     //Finally perform the match
     
-    std::cerr<<"\n"<<re.getErrorMessage();
+    std::cerr<<"\n"<<rm.getErrorMessage();
     
     
     // re.reset(); // re-initialize re

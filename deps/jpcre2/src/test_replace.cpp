@@ -25,15 +25,17 @@ int main(){
     //subject string
     std::string s="I am a string with words and digits 45 and specials chars: ?.#@ 443 অ আ ক খ গ ঘ  56";
     
+    jp::RegexReplace rr;
     std::cout<<"\nreplaced string: \n"<<
-    re.initReplace()                                                    //create replace object
-      .setSubject(s)                                                    //Set various parameters
-      .setReplaceWith("(replaced:$1)(replaced:$2)(replaced:${word})")   //...
-      .addModifier("xE")                                                //
-      .addPcre2Option(0)                                                //...
-      .replace();                                                       //Finally perform the replace operation.
+    rr.setRegexObject(&re)                                               //set associated Regex object
+      .setSubject(&s)                                                    //Set various parameters
+      .setReplaceWith("(replaced:$1)(replaced:$2)(replaced:${word})")    //...
+      .addModifier("xEafds")                                             //
+      .addPcre2Option(0)                                                 //...
+      .replace();                                                        //Finally perform the replace operation.
     
-    if(!re){std::cerr<<re.getErrorMessage();}
+    if(rr.getErrorNumber() != 0)
+        std::cerr<<"\n"<<rr.getErrorMessage();
     
 	return 0;
 }

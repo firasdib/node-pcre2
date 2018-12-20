@@ -5,8 +5,10 @@ SUBDIRS = src
 EXTRA_DIST = autogen.sh \
 	.gitignore \
 	.gitattributes \
-	.travis.yml
-	m4/ax_cxx_compile_stdcxx.m4
+	.travis.yml \
+	m4/ax_cxx_compile_stdcxx.m4 \
+	m4/ax_check_define.m4 \
+	Additional-Info.txt
 
 dist_doc_DATA = \
   AUTHORS \
@@ -14,3 +16,25 @@ dist_doc_DATA = \
   ChangeLog \
   NEWS \
   README.md
+  
+
+.PHONY: coverage
+#.PHONY: covclean
+
+if WITH_COVERAGE
+
+coverage: src
+	$(MAKE) coverage -C src
+
+covclean: src 
+	$(MAKE) covclean -C src
+
+else
+
+coverage:
+	@printf "\n--- configure with --enable-coverage to run coverage ---\n\n"
+
+covclean:
+	@printf "\n--- configure with --enable-coverage to run coverage ---\n\n"
+
+endif

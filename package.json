@@ -1,4 +1,5 @@
-{ "name": "pcre2",
+{
+  "name": "pcre2",
   "version": "0.0.2",
   "homepage": "https://github.com/Kamil93/node-pcre2",
   "repository": {
@@ -8,8 +9,22 @@
   "author": "Kamil Krzyszczuk (https://github.com/Kamil93)",
   "description": "A PCRE2 binding for node.js",
   "main": "./lib/pcre2",
-  "engines": { "node": ">=0.8.0" },
-  "keywords": [ "pcre2", "pcre", "regex", "perl", "libpcre", "regexp", "negative", "positive", "lookbehind", "regex condition", "subroutines" ],
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "keywords": [
+    "pcre2",
+    "pcre",
+    "regex",
+    "perl",
+    "libpcre",
+    "regexp",
+    "negative",
+    "positive",
+    "lookbehind",
+    "regex condition",
+    "subroutines"
+  ],
   "dependencies": {
     "bindings": "^1.3.1",
     "nan": "^2.12.1"

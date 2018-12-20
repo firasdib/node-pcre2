@@ -15,7 +15,7 @@
 			"include_dirs": [
 				"<!(node -e \"require('nan')\")",
 				"build_pcre2/include/",
-				"deps/pcre2/src/"
+				"deps/jpcre2/src/"
 			],
 			"libraries": [ "../build_pcre2/lib/libpcre2-8.a" ],
 			'conditions': [

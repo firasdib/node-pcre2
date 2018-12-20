@@ -45,7 +45,7 @@ Subject length lower bound = 5
 ------------------------------------------------------------------
 
 /\C\X*TӅ;
-{0,6}\v+F
+{0,6}\v+F
 /utf
 \= Expect no match
     Ӆ\x0a
@@ -163,5 +163,18 @@ No match
 \= Expect no match in 8-bit mode
     a\x{100}b
  0: a\x{100}b
+
+/^ab\C/utf,no_start_optimize
+\= Expect no match - tests \C at end of subject
+    ab
+No match
+
+/\C[^\v]+\x80/utf
+    [AΏBŀC]
+No match
+
+/\C[^\d]+\x80/utf
+    [AΏBŀC]
+No match
 
 # End of testinput22
